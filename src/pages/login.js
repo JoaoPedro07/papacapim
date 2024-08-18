@@ -1,4 +1,4 @@
-import {Button, StyleSheet, Text, TextInput, View, Image} from 'react-native';
+import {Button, StyleSheet, Text, TextInput, View, Image, TouchableOpacity} from 'react-native';
 import imagem from '../../src/passaro.png'
 
 export default function Login({ navigation }) {
@@ -14,7 +14,18 @@ export default function Login({ navigation }) {
             <View style={styles.input}>
                 <TextInput keyboardType='visible-password' placeholder='telefone'></TextInput>
             </View>
-            <Button title='Logar' onPress={() => navigation.navigate("Contatos")}></Button>
+
+            <TouchableOpacity onPress={() => navigation.navigate("Contatos")}>
+              <View style={styles.button}>
+                <Text style={styles.button_label}>{'Logar'}</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => navigation.navigate("Contatos")}>
+              <View style={styles.button_cadastro}>
+                <Text style={styles.button_label_cadastro}>{'Cadastrar-se'}</Text>
+              </View>
+            </TouchableOpacity>
         </View>
     </View>
 
@@ -41,5 +52,30 @@ const styles = StyleSheet.create({
     width: 250,
 
 
-  }
+  },
+  button:{
+    margin: 5,
+    backgroundColor: 'blue',
+    alignItems: 'center',
+    borderRadius: 6,
+
+
+  },
+  button_label:{
+    fontSize: 18,
+    margin: 4,
+    color: 'white',
+
+  
+  },
+  button_cadastro:{
+    alignItems: 'center',
+
+  },
+  button_label_cadastro:{
+    fontSize: 16,
+    margin: 4,
+    color: 'blue',
+
+  },
 });

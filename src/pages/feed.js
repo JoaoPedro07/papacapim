@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Tweet } from '../../components/Tweet';
 
 export default function Contatos({ navigation }) {
@@ -9,7 +9,10 @@ export default function Contatos({ navigation }) {
         <ScrollView style={styles.scroll}>
           <View >
             <StatusBar style="auto" />
-            <Tweet img="../../src/passaro.png"textoum="Pedro" textodois="Muito bom dia, antes de falar sobre a etapa 3 da Vuelta,  e essa transferência bombástica de Julian Alaphilippe para a Tudor? O rumor era forte, mas um bicampeão mundial deixar o WorldTour para um projeto da segunda divisão..." cat="2"/>
+            <TouchableOpacity onPress={() => navigation.navigate("MostrarUsuario", {"usuario":"Pedro"})}>
+              <Tweet textoum="Pedro" textodois="Muito bom dia, antes de falar sobre a etapa 3 da Vuelta,  e essa transferência bombástica de Julian Alaphilippe para a Tudor? O rumor era forte, mas um bicampeão mundial deixar o WorldTour para um projeto da segunda divisão..." cat="2"/>
+            </TouchableOpacity>
+            
             <Tweet textoum="Julio" textodois="UNIFAN" cat="2"></Tweet>
             <Tweet textoum="Mateus" textodois="UEFS" cat="1"></Tweet>
             <Tweet textoum="Clara" textodois="UFRB" cat="1"></Tweet>
@@ -22,8 +25,19 @@ export default function Contatos({ navigation }) {
  
           </View>
         </ScrollView>
-        <View style={styles.button}>
-            <Button title='Postar' onPress={() => navigation.navigate("Postar")}></Button>
+        <View style={styles.button_view}>
+            <TouchableOpacity onPress={() => navigation.navigate("Postar")}>
+              <View style={styles.button}>
+                <Text style={styles.button_label}>{'Postar'}</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => navigation.navigate("Alterar")}>
+              <View style={styles.button}>
+                <Text style={styles.button_label}>{'Alterar perfil'}</Text>
+              </View>
+            </TouchableOpacity>
+
         </View>
 
       </SafeAreaView>
@@ -41,8 +55,26 @@ const styles = StyleSheet.create({
   scroll: {
       marginHorizontal: 6,
   },
-  button:{
+  button_view:{
     padding: 10,
-  }
+    flexDirection: "row"
+  },  
+  button:{
+
+    margin: 5,
+    backgroundColor: 'blue',
+    alignItems: 'center',
+    borderRadius: 6,
+
+
+  },
+  button_label:{
+  
+    fontSize: 18,
+    margin: 4,
+    color: 'white',
+
+  
+  },
 
 });

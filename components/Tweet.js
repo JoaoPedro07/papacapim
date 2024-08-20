@@ -1,4 +1,5 @@
 import { ScrollView, StyleSheet, Text, TextInput, View, Image} from "react-native";
+
 export function Tweet(props){
     const uri = "https://reactnative.dev/docs/assets/p_cat"+props.cat+".png";
     return (

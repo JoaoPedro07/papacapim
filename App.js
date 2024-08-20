@@ -7,7 +7,8 @@ import AddContatos from './src/pages/addcontato';
 import Login from './src/pages/login';
 import Cadastrar from './src/pages/cadastro';
 import Postar from './src/pages/postar';
-
+import Alterar from './src/pages/alterar';
+import MostrarUsuario from './src/pages/usuario';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -19,6 +20,8 @@ export default function App() {
       <Stack.Screen name='addContatos' component={AddContatos} options={{title:"Adicionar"}}/>
       <Stack.Screen name='Cadastrar' component={Cadastrar} options={{title:"Cadastrar"}}/>
       <Stack.Screen name='Postar' component={Postar} options={{title:"Postar"}}/>
+      <Stack.Screen name='Alterar' component={Alterar} options={{title:"Alterar"}}/>
+      <Stack.Screen name='MostrarUsuario' component={MostrarUsuario} options={{title:"Usuario"}}/>
       
     </Stack.Navigator>
   </NavigationContainer>

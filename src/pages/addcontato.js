@@ -7,9 +7,6 @@ import { Alert } from 'react-native';
 export default function AddContatos({ navigation }) {
   const [nome, setNome] = useState('');
   const [telefone, setTelefone] = useState('');
-  function alerta(){
-    Alert.alert(`${nome} tem o telefone ${telefone}`)
-  }
   return (
     <View style={styles.container}> 
         <Text style={styles.texto}>Nome</Text>

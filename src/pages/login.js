@@ -15,13 +15,13 @@ export default function Login({ navigation }) {
                 <TextInput keyboardType='visible-password' placeholder='telefone'></TextInput>
             </View>
 
-            <TouchableOpacity onPress={() => navigation.navigate("Contatos")}>
+            <TouchableOpacity onPress={() => navigation.navigate("Feed")}>
               <View style={styles.button}>
                 <Text style={styles.button_label}>{'Logar'}</Text>
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate("Contatos")}>
+            <TouchableOpacity onPress={() => navigation.navigate("Cadastrar")}>
               <View style={styles.button_cadastro}>
                 <Text style={styles.button_label_cadastro}>{'Cadastrar-se'}</Text>
               </View>

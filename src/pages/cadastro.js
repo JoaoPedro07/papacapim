@@ -1,18 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
 import {Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import { Contact } from '../../components/Tweet';
 import { useState } from "react";
 import { Alert } from 'react-native';
 
-export default function AddContatos({ navigation }) {
+export default function Cadastrar({ navigation }) {
   const [nome, setNome] = useState('');
   const [telefone, setTelefone] = useState('');
+  const [senha, setSenha] = useState('');
   function alerta(){
     Alert.alert(`${nome} tem o telefone ${telefone}`)
   }
   return (
     <View style={styles.container}> 
-        <Text style={styles.texto}>Nome</Text>
+        <Text style={styles.texto}>Usuário</Text>
         <View style={styles.input}>
             <TextInput placeholder='nome' onChangeText={setNome}/>
         </View>
@@ -20,7 +19,11 @@ export default function AddContatos({ navigation }) {
         <View style={styles.input}>
             <TextInput keyboardType='numeric' placeholder='telefone' onChangeText={setTelefone}></TextInput>
         </View>
-        <Button title='Salvar' onPress={() => navigation.navigate("Contatos")}></Button>
+        <Text style={styles.texto}>Senha</Text>
+        <View style={styles.input}>
+            <TextInput placeholder='senha' onChangeText={setSenha}></TextInput>
+        </View>
+        <Button title='Cadastrar' onPress={() => navigation.navigate("Login")}></Button>
     </View>
 
   );

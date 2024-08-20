@@ -2,9 +2,11 @@ import {StyleSheet} from 'react-native';
 import { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Contatos from './src/pages/contatos';
+import Feed from './src/pages/feed';
 import AddContatos from './src/pages/addcontato';
 import Login from './src/pages/login';
+import Cadastrar from './src/pages/cadastro';
+import Postar from './src/pages/postar';
 
 
 export default function App() {
@@ -12,9 +14,11 @@ export default function App() {
   return (
   <NavigationContainer>
     <Stack.Navigator>
-      <Stack.Screen name='login' component={Login} options={{title:"Login"}}/>
-      <Stack.Screen name='Contatos' component={Contatos} options={{title:"Contatos"}}/>
+      <Stack.Screen name='Login' component={Login} options={{title:"Login"}}/>
+      <Stack.Screen name='Feed' component={Feed} options={{title:"Feed"}}/>
       <Stack.Screen name='addContatos' component={AddContatos} options={{title:"Adicionar"}}/>
+      <Stack.Screen name='Cadastrar' component={Cadastrar} options={{title:"Cadastrar"}}/>
+      <Stack.Screen name='Postar' component={Postar} options={{title:"Postar"}}/>
       
     </Stack.Navigator>
   </NavigationContainer>

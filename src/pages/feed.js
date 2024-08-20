@@ -9,19 +9,32 @@ export default function Contatos({ navigation }) {
         <ScrollView style={styles.scroll}>
           <View >
             <StatusBar style="auto" />
-            <TouchableOpacity onPress={() => navigation.navigate("MostrarUsuario", {"usuario":"Pedro"})}>
-              <Tweet textoum="Pedro" textodois="Muito bom dia, antes de falar sobre a etapa 3 da Vuelta,  e essa transferência bombástica de Julian Alaphilippe para a Tudor? O rumor era forte, mas um bicampeão mundial deixar o WorldTour para um projeto da segunda divisão..." cat="2"/>
+            <TouchableOpacity onPress={() => navigation.navigate("MostrarUsuario", {"usuario":"Pedro", "picture":"https://pbs.twimg.com/profile_images/1695063177996713985/InPVE-hP_400x400.jpg"})}>
+              <Tweet textoum="Pedro" textodois="Muito bom dia, antes de falar sobre a etapa 3 da Vuelta,  e essa transferência bombástica de Julian Alaphilippe para a Tudor? O rumor era forte, mas um bicampeão mundial deixar o WorldTour para um projeto da segunda divisão..." picture="https://pbs.twimg.com/profile_images/1695063177996713985/InPVE-hP_400x400.jpg"/>
             </TouchableOpacity>
-            
-            <Tweet textoum="Julio" textodois="UNIFAN" cat="2"></Tweet>
-            <Tweet textoum="Mateus" textodois="UEFS" cat="1"></Tweet>
-            <Tweet textoum="Clara" textodois="UFRB" cat="1"></Tweet>
-            <Tweet textoum="João" textodois="IFBA" cat="1"></Tweet>
-            <Tweet textoum="William" textodois="UFES" cat="2"></Tweet>
-            <Tweet textoum="Guilherme" textodois="UFPEL" cat="2"></Tweet>
-            <Tweet textoum="Esdras" textodois="UFRJ" cat="1"></Tweet>
-            <Tweet textoum="Bia" textodois="UFBA" cat="1"></Tweet>
-            <Tweet textoum="Vini" textodois="UFRB" cat="2"></Tweet> 
+            <TouchableOpacity onPress={() => navigation.navigate("MostrarUsuario", {"usuario":"Terrible Maps", "picture":"https://pbs.twimg.com/profile_images/695741339326160900/CalT3T7Y_200x200.jpg"})}>
+              <Tweet textoum="Terrible Maps" textodois="I don't speak Latin, unfortunately, but I'm going to just guess that this is a terrible map" picture="https://pbs.twimg.com/profile_images/695741339326160900/CalT3T7Y_200x200.jpg"/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("MostrarUsuario", {"usuario":"LOUD", "picture":"https://pbs.twimg.com/profile_images/1820916374950002689/KmoWpVhO_200x200.jpg"})}>
+              <Tweet textoum="LOUD" textodois="Botamos 4 jogadores da LOUD VALORANT num mapa de Lethal Company e fomos surpreendidos em quão desesperado o Cauanzin é em jogos de suspense" picture="https://pbs.twimg.com/profile_images/1820916374950002689/KmoWpVhO_200x200.jpg"/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("MostrarUsuario", {"usuario":"Time Brasil", "picture":"https://pbs.twimg.com/profile_images/1798778033366880256/9azdm_Qz_400x400.jpg"})}>
+              <Tweet textoum="Time Brasil" textodois="Botamos 4 jogadores da LOUD VALORANT num mapa de Lethal Company e fomos surpreendidos em quão desesperado o Cauanzin é em jogos de suspense" picture="https://pbs.twimg.com/profile_images/1798778033366880256/9azdm_Qz_400x400.jpg"/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("MostrarUsuario", {"usuario":"Dólar Bipolar", "picture":"https://pbs.twimg.com/profile_images/1438613648591794184/UUAWezY8_400x400.jpg"})}>
+              <Tweet textoum="Dólar Bipolar" textodois="Dólar subiu ☹️ - R$ 5,41 às 16:20
+Variação 📉 -1,15% (R$ 0,06)" picture="https://pbs.twimg.com/profile_images/1438613648591794184/UUAWezY8_400x400.jpg"/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("MostrarUsuario", {"usuario":"Movistar", "picture":"https://pbs.twimg.com/profile_images/1822876948428689409/kQfpg8vq_400x400.jpg"})}>
+              <Tweet textoum="Movistar" textodois="🇧🇷🙏🏻 Vinícius Rangel pone punto y final a su etapa con Movistar Team y regresa a Brasil, tras cinco años compitiendo en Europa
+
+Carta abierta del ciclista de Cabo Frio, en su despedida de la escuadra 
+@Telefonica
+ → http://movistarteam.com/gracias-vini
+
+#RodamosJuntos, siempre 🫂💙" picture="https://pbs.twimg.com/profile_images/1822876948428689409/kQfpg8vq_400x400.jpg"/>
+            </TouchableOpacity>
+  
  
           </View>
         </ScrollView>

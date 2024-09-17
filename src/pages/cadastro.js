@@ -1,18 +1,17 @@
 import {Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup"
 import * as yup from "yup";
+import api from "../../services/api"
+
 
 
 export default function Cadastrar({ navigation }) {
-  const [nome, setNome] = useState('');
-  const [telefone, setTelefone] = useState('');
-  const [senha, setSenha] = useState('');
   const schema = yup.object({
     name: yup.string().required("Campo obrigatório"),
-    telefone: yup.string().required("Campo obrigatório").min(11, "Mínimo 11 caracteres"),
+    login: yup.string().required("Campo obrigatório"),
     password: yup.string().required("Campo obrigatório").min(6, "Mínimo 6 caracteres"),
+    confirm_password: yup.string().required("Campo obrigatório").min(6, "Mínimo 6 caracteres"),
   })
   const {  
     handleSubmit, 
@@ -24,12 +23,32 @@ export default function Cadastrar({ navigation }) {
     resolver:yupResolver(schema),
   });
 
-  const save = (data) => {
-    console.log(data)
+  async function save(data){
+    if(data.password == data.confirm_password){
+      const log = await api
+      .post("/users",{
+          "user": {
+            "login": data.login,
+            "name": data.name,
+            "password": data.password,
+            "password_confirmation": data.password_confirm,
+          }
+      })
+        .catch((err) => {
+          if(err = 422){
+            console.log("Usuário já existe")
+          }
+          else{
+            console.log("ops! ocorreu um erro: " + err);
+          }
+
+        });
+    }
+
   }
   return ( 
     <View style={styles.container}> 
-        <Text style={styles.texto}>Usuário</Text>
+        <Text style={styles.texto}>Nome</Text>
         <View style={styles.input}>
           <Controller 
           name="name" 
@@ -44,21 +63,20 @@ export default function Cadastrar({ navigation }) {
         </View>
         {errors?.name && <Text style={{color:"red"}}>{errors?.name?.message}</Text> }
 
-        <Text style={styles.texto}>Telefone</Text>
+        <Text style={styles.texto}>Usuário</Text>
         <View style={styles.input}>
           <Controller 
-          name="telefone" 
+          name="login" 
           control={control} 
           render={({field: {onChange, value}}) => (
             <TextInput 
-            keyboardType="numeric" 
-            name="telefone" 
-            placeholder='telefone' 
+            name="login" 
+            placeholder='usuário' 
             onChangeText={(value) => onChange(value)}/>
           )}/>
         
         </View>
-        {errors?.telefone && <Text style={{color:"red"}}>{errors?.telefone?.message}</Text> }
+        {errors?.login && <Text style={{color:"red"}}>{errors?.login?.message}</Text> }
 
         <Text style={styles.texto}>Senha</Text>
         <View style={styles.input}>
@@ -75,6 +93,23 @@ export default function Cadastrar({ navigation }) {
         
         </View>
         {errors?.password && <Text style={{color:"red"}}>{errors?.password?.message}</Text> }
+
+
+        <Text style={styles.texto}>Senha</Text>
+        <View style={styles.input}>
+          <Controller 
+          name="confirm_password" 
+          control={control} 
+          render={({field: {onChange, value}}) => (
+            <TextInput 
+            name="confirm_password" 
+            secureTextEntry={true}
+            placeholder='confirmar senha' 
+            onChangeText={(value) => onChange(value)}/>
+          )}/>
+        
+        </View>
+        {errors?.confirm_password && <Text style={{color:"red"}}>{errors?.confirm_password?.message}</Text> }
 
         <Button title='Cadastrar' onPress={handleSubmit(save)}></Button>
     </View>

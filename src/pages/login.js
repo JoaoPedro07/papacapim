@@ -1,21 +1,74 @@
 import {Button, StyleSheet, Text, TextInput, View, Image, TouchableOpacity} from 'react-native';
-import imagem from '../../src/passaro.png'
+import imagem from '../../src/passaro.png';
+import {useForm, Controller} from "react-hook-form"
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+import api from "../../services/api";
 
 export default function Login({ navigation }) {
+  const schema = yup.object({
+    login: yup.string().required("Campo obrigatório"),
+    password: yup.string().required("Campo Obrigatório"),
+
+  })
+  const {
+    handleSubmit,
+    register,
+    control,
+    setValue,
+    formState: { errors },
+  } = useForm({resolver:yupResolver(schema)})
+
+  async function save(data){
+      const response = await api
+      .post("/sessions",{
+            "login": data.login,
+            "password": data.password,
+      })
+        .catch((err) => {
+            console.log("ops! ocorreu um erro: " + err);
+
+        });
+      console.log(response.data)
+
+  }
   return (
     <View style={styles.container}> 
         <View style={styles.divlogin}>
             <Image source ={imagem} style={{width:250, height:250,}}/>
             <Text style={styles.texto}>Usuário</Text>
             <View style={styles.input}>
-                <TextInput placeholder='usuário'/>
+              <Controller 
+              name="login" 
+              control={control} 
+              render={({field: {onChange, value}}) => (
+                <TextInput 
+                name="login" 
+                placeholder='usuário' 
+                onChangeText={(value) => onChange(value)}/>
+              )}/>
+
             </View>
+            {errors?.login && <Text style={{color:"red"}}>{errors?.login?.message}</Text> }
+
             <Text style={styles.texto}>Senha</Text>
             <View style={styles.input}>
-                <TextInput keyboardType='visible-password' placeholder='telefone'></TextInput>
-            </View>
+              <Controller 
+              name="password" 
+              control={control} 
+              render={({field: {onChange, value}}) => (
+                <TextInput 
+                name="password" 
+                secureTextEntry={true}
+                placeholder='senha' 
+                onChangeText={(value) => onChange(value)}/>
+              )}/>
 
-            <TouchableOpacity onPress={() => navigation.navigate("Feed")}>
+            </View>
+            {errors?.password && <Text style={{color:"red"}}>{errors?.password?.message}</Text> }
+
+
+            <TouchableOpacity onPress={handleSubmit(save)}>
               <View style={styles.button}>
                 <Text style={styles.button_label}>{'Logar'}</Text>
               </View>

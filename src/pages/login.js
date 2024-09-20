@@ -1,4 +1,4 @@
-import {Button, StyleSheet, Text, TextInput, View, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, TextInput, View, Image, TouchableOpacity} from 'react-native';
 import imagem from '../../src/passaro.png';
 import {useForm, Controller} from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -26,7 +26,7 @@ export default function Login({ navigation }) {
             "password": data.password,
       })
         .catch((err) => {
-            console.log("ops! ocorreu um erro: " + err);
+            return <Text>ops! ocorreu um erro</Text>
 
         });
       console.log(response.data)

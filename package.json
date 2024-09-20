@@ -9,9 +9,11 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@eva-design/eva": "^2.2.0",
     "@hookform/resolvers": "^3.9.0",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/native-stack": "^6.11.0",
+    "@ui-kitten/components": "^5.3.1",
     "axios": "^1.7.7",
     "expo": "~51.0.22",
     "expo-cli": "^6.3.10",
@@ -19,6 +21,8 @@
     "react": "18.2.0",
     "react-hook-form": "^7.53.0",
     "react-native": "0.74.3",
+    "react-native-svg": "^15.7.1",
+    "react-native-ui-kitten": "^4.4.1",
     "yup": "^1.4.0"
   },
   "devDependencies": {

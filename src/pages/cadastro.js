@@ -6,7 +6,7 @@ import api from "../../services/api";
 import { saveUser } from "./functions/saveUser";
 import { useState } from 'react';
 import Modal from "../../components/modal";
-import { Loading } from "../../components"
+
 
 
 export default function Cadastrar({ navigation }) {
@@ -108,7 +108,7 @@ export default function Cadastrar({ navigation }) {
         {(success || error) && (
           
               <Modal
-                open ={success}
+                open ={true}
                 close ={() => closeModal()}
                 message={success ? "Usuário criado com sucesso" : "Ocorreu um erro, este usuário já existe"}
               />

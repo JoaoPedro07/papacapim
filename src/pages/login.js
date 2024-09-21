@@ -3,9 +3,15 @@ import imagem from '../../src/passaro.png';
 import {useForm, Controller} from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import api from "../../services/api";
+import { authUser } from './functions/authUser';
+import { useEffect, useState } from 'react';
 
 export default function Login({ navigation }) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+
   const schema = yup.object({
     login: yup.string().required("Campo obrigatório"),
     password: yup.string().required("Campo Obrigatório"),
@@ -20,16 +26,11 @@ export default function Login({ navigation }) {
   } = useForm({resolver:yupResolver(schema)})
 
   async function save(data){
-      const response = await api
-      .post("/sessions",{
-            "login": data.login,
-            "password": data.password,
-      })
-        .catch((err) => {
-            return <Text>ops! ocorreu um erro</Text>
+    const response  = await authUser(data, setLoading, setError, setSuccess);
+    if(response){
+      navigation.navigate("Feed");
+    }
 
-        });
-      console.log(response.data)
 
   }
   return (

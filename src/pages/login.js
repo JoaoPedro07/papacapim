@@ -5,12 +5,18 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { authUser } from './functions/authUser';
 import { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../contexts/auth';
+import { Alert } from 'react-native';
+import LoadingComponent from '../../components/loading';
+import { Button } from 'react-native-paper';
 
 export default function Login({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
-
+  const {user, setUser} = useContext(AuthContext);
+  
 
   const schema = yup.object({
     login: yup.string().required("Campo obrigatório"),
@@ -26,14 +32,20 @@ export default function Login({ navigation }) {
   } = useForm({resolver:yupResolver(schema)})
 
   async function save(data){
+    setLoading(true)
     const response  = await authUser(data, setLoading, setError, setSuccess);
-    if(response){
+    if(response != false){
+      setUser({id:response.id, user:response.user_login, token:response.token})
       navigation.navigate("Feed");
     }
-
+    else{
+      Alert.alert("Erro", "Usuário e/ou senha incorretos")
+    }
 
   }
+
   return (
+    
     <View style={styles.container}> 
         <View style={styles.divlogin}>
             <Image source ={imagem} style={{width:250, height:250,}}/>
@@ -69,11 +81,7 @@ export default function Login({ navigation }) {
             {errors?.password && <Text style={{color:"red"}}>{errors?.password?.message}</Text> }
 
 
-            <TouchableOpacity onPress={handleSubmit(save)}>
-              <View style={styles.button}>
-                <Text style={styles.button_label}>{'Logar'}</Text>
-              </View>
-            </TouchableOpacity>
+            <Button loading={loading} mode='contained-tonal' buttonColor='blue' textColor='white' onPress={handleSubmit(save)}>Logar</Button>
 
             <TouchableOpacity onPress={() => navigation.navigate("Cadastrar")}>
               <View style={styles.button_cadastro}>

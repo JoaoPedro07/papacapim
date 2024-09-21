@@ -9,21 +9,25 @@ import Cadastrar from './src/pages/cadastro';
 import Postar from './src/pages/postar';
 import Alterar from './src/pages/alterar';
 import MostrarUsuario from './src/pages/usuario';
+import AuthProvider from './src/contexts/auth';
+import Deletar from './src/pages/deletar';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
   <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen name='Login' component={Login} options={{title:"Login"}}/>
-      <Stack.Screen name='Feed' component={Feed} options={{title:"Feed"}}/>
-      <Stack.Screen name='addContatos' component={AddContatos} options={{title:"Adicionar"}}/>
-      <Stack.Screen name='Cadastrar' component={Cadastrar} options={{title:"Cadastrar"}}/>
-      <Stack.Screen name='Postar' component={Postar} options={{title:"Postar"}}/>
-      <Stack.Screen name='Alterar' component={Alterar} options={{title:"Alterar"}}/>
-      <Stack.Screen name='MostrarUsuario' component={MostrarUsuario} options={{title:"Usuario"}}/>
-      
-    </Stack.Navigator>
+    <AuthProvider>
+      <Stack.Navigator>
+        <Stack.Screen name='Login' component={Login} options={{title:"Login"}}/>
+        <Stack.Screen name='Feed' component={Feed} options={{title:"Feed"}}/>
+        <Stack.Screen name='addContatos' component={AddContatos} options={{title:"Adicionar"}}/>
+        <Stack.Screen name='Cadastrar' component={Cadastrar} options={{title:"Cadastrar"}}/>
+        <Stack.Screen name='Postar' component={Postar} options={{title:"Postar"}}/>
+        <Stack.Screen name='Alterar' component={Alterar} options={{title:"Alterar"}}/>
+        <Stack.Screen name='MostrarUsuario' component={MostrarUsuario} options={{title:"Usuario"}}/>
+        <Stack.Screen name='Deletar' component={Deletar} options={{title:"Deletar"}}/>
+      </Stack.Navigator>
+    </AuthProvider>
   </NavigationContainer>
 
   );

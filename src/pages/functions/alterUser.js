@@ -1,23 +1,23 @@
 import api from "../../../services/api";
 
-export const saveUser = async (data, setLoading, setError, setSuccess) => {
-    setLoading(true);
-    console.log("saveuser");
+export const alterUser = async (token, id, data, setLoading, setError, setSuccess) => {
     try{
         const response = await api
-        .post("/users", {
+        .patch(`/users/${id}`, {
             "user": {
               "login": data.login,
               "name": data.name,
               "password": data.password,
               "password_confirmation": data.password_confirm,
-            }});
-        console.log(response)
-        setLoading(false);
+            }}, {headers:{"x-session-token":token}});
+        setLoading(true);
         setSuccess(true);
+        setError(false)
+        return response
     } catch(e){
-        console.log(e);
-        setLoading(false);
         setError(true);
+        setSuccess(false)
+        return false;
+
     }
 };

@@ -14,6 +14,9 @@ export default function Contatos({ navigation }) {
           <View >
             <StatusBar style="auto" />
 
+            <TouchableOpacity onPress={() => navigation.navigate("MostrarUsuario", {"usuario":"Pedro", "picture":"https://pbs.twimg.com/profile_images/1695063177996713985/InPVE-hP_400x400.jpg"})}>
+              <Tweet textoum="Pedro" textodois="Muito bom dia, antes de falar sobre a etapa 3 da Vuelta,  e essa transferência bombástica de Julian Alaphilippe para a Tudor? O rumor era forte, mas um bicampeão mundial deixar o WorldTour para um projeto da segunda divisão..." picture="https://pbs.twimg.com/profile_images/1695063177996713985/InPVE-hP_400x400.jpg"/>
+            </TouchableOpacity>
  
           </View>
         </ScrollView>
@@ -35,6 +38,14 @@ export default function Contatos({ navigation }) {
                 <Text style={styles.button_label}>{'Alterar perfil'}</Text>
               </View>
             </TouchableOpacity>
+
+            
+            <TouchableOpacity onPress={() => navigation.navigate("Pesquisar")}>
+              <View style={styles.button}>
+                <Text style={styles.button_label}>{'Pesquisar'}</Text>
+              </View>
+            </TouchableOpacity>
+
 
         </View>
 

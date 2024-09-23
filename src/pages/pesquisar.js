@@ -1,11 +1,13 @@
-import { StatusBar, View, TextInput, ScrollView, Text} from "react-native"
+import { StatusBar, View, TextInput, ScrollView, Text, TouchableOpacity} from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { buscarUser } from "./functions/buscarUser"
 import React, { useState, useEffect } from 'react';
 import { AuthContext } from "../contexts/auth"
 import { useContext } from "react"
+import { Alert } from "react-native";
 
-export default function Pesquisar(){
+
+export default function Pesquisar({navigation}){
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -51,9 +53,11 @@ export default function Pesquisar(){
                                 return val
                             }
                         } ).map((item, index) => (
-                            <Text key={index}>{item.name}</Text>
+                            <TouchableOpacity key={index} onPress={() => navigation.navigate("MostrarUsuario", {"usuario":item.name, "login":item.login})}>
+                                <Text key={index}>{item.name}</Text>
+                            </TouchableOpacity>
+
                         ))}
-    
                     </ScrollView>
                 </SafeAreaView>
             </View>

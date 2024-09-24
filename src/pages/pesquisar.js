@@ -41,11 +41,11 @@ export default function Pesquisar({navigation}){
                 <TextInput 
                 placeholder='pesquisar'
                 onChangeText={setSearchWord}
+                style={{width:350,height:40, borderColor:'black', borderWidth:0.6}}
                 />
             
                 <SafeAreaView>
                     <ScrollView>
-    
                         {searchWord != '' && users.filter((val) => {
                             if(searchWord == ""){
                                 return val
@@ -53,8 +53,8 @@ export default function Pesquisar({navigation}){
                                 return val
                             }
                         } ).map((item, index) => (
-                            <TouchableOpacity key={index} onPress={() => navigation.navigate("MostrarUsuario", {"usuario":item.name, "login":item.login})}>
-                                <Text key={index}>{item.name}</Text>
+                            <TouchableOpacity style={{width:350,height:40, backgroundColor:'#f7f7f7', justifyContent:'center', margin:2, borderColor:'black', borderWidth:0.2}} key={index} onPress={() => navigation.navigate("MostrarUsuario", {"usuario":item.name, "login":item.login})}>
+                                <Text style={{}} key={index}>{item.name}</Text>
                             </TouchableOpacity>
 
                         ))}

@@ -1,34 +1,67 @@
-import {StyleSheet, Text,View,Image, Button, TouchableOpacity } from 'react-native';
-import { seguirUser } from './functions/seguirUser';
-import React, { useContext } from 'react';
-import { AuthContext } from '../contexts/auth';
-import { useState } from 'react';
+import {StyleSheet, Text,View,Image, Button, TouchableOpacity } from 'react-native'
+import { seguirUser } from './functions/seguirUser'
+import { deixarSeguirUser } from './functions/deixarSeguirUser'
+import { seguindoUser } from './functions/seguindoUser'
+import React, { useContext } from 'react'
+import { AuthContext } from '../contexts/auth'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import { Alert } from 'react-native'
 
 
 export default function MostrarUsuario({route, navigate}) {
-  const {usuario} = route.params;
-  const {user, setUser} = useContext(AuthContext);
-  const {login} = route.params;
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const {usuario} = route.params
+  const {user, setUser} = useContext(AuthContext)
+  const {login} = route.params
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [jaSegue, setJaSegue] = useState(false)
   {/*const {picture} = route.params;*/}
 
+  async function seguindo(){
+    const response = await seguindoUser(user.token, login, setLoading, setError, setSuccess)
+    console.log(response.data)
+    response.data.forEach(element => {
+      if(element.follower_login === user.user){
+        setJaSegue(true)
+      }
+    });
+
+  }
   
+  useEffect(() => {
+    seguindo()
+  }, [jaSegue])
+
 
   async function seguir(){
-    const response = await seguirUser(user.token, login, setLoading, setError, setSuccess)
-    console.log(response)
+    if(jaSegue){
+      const response = await deixarSeguirUser(user.token, login, setLoading, setError, setSuccess)
+      if(response){
+        setJaSegue(false)
+      }
+
+    }
+    else{
+      const response = await seguirUser(user.token, login, setLoading, setError, setSuccess)
+      if(response){
+        setJaSegue(true)
+      }
+    }
+
   }
   return (
     <View style={styles.container}>
+     
       <View style={styles.viewsuperior}>
-        {/*<Image source ={{uri:picture}} style={{width:90, height:90, borderRadius:40}}/>*/}
-        <TouchableOpacity onPress={seguir} style={styles.button}>
-          <Text style={styles.textobotao}>seguir</Text>
-        </TouchableOpacity>
-        {success && Alert.alert("Seguindo", "Você agora está seguindo este usuário.")}
-        {error && Alert.alert("Erro", "Ocorreu algum erro ao tentar seguir")}
+
+        <Image  style={{width:90, height:90, borderRadius:40}}/>
+        <View>
+          <TouchableOpacity onPress={seguir} style={styles.button}>
+            <Text style={styles.textobotao}>{jaSegue? 'Unfollow':'Follow'}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.caixaTituloTexto}>
@@ -48,7 +81,7 @@ const styles = StyleSheet.create({
 
   },
   viewsuperior:{
-    gap: 218,
+    gap: 200,
 
 
     flexDirection: "row",
@@ -82,5 +115,6 @@ const styles = StyleSheet.create({
     margin: 5,
     fontSize: 18,
   }
+  
 
-});
+})

@@ -10,14 +10,16 @@ export const alterUser = async (token, id, data, setLoading, setError, setSucces
               "password": data.password,
               "password_confirmation": data.password_confirm,
             }}, {headers:{"x-session-token":token}});
-        setLoading(true);
-        setSuccess(true);
+        setLoading(true)
+        setSuccess(true)
         setError(false)
+        console.log(response.data)
         return response
     } catch(e){
-        setError(true);
+        console.log(e)
+        setError(true)
         setSuccess(false)
-        return false;
+        return false
 
     }
-};
+}

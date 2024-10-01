@@ -18,7 +18,7 @@ export default function Pesquisar({navigation}){
     async function busca() {
         try {
           console.log("função")
-          const usersData = await buscarUser(user.token, setLoading, setError, setSuccess);
+          const usersData = await buscarUser(searchWord, user.token, setLoading, setError, setSuccess);
           return usersData;
         } catch (error) {
           console.error('Erro ao buscar usuários:', error);
@@ -32,7 +32,7 @@ export default function Pesquisar({navigation}){
     
     useEffect(() => {
         fetchUsers()
-    }, [])
+    }, [searchWord])
 
     if(users != null){
         return (

@@ -1,10 +1,11 @@
 import api from "../../../services/api";
 
-export const buscarUser = async (token, setLoading, setError, setSuccess) => {
+export const buscarUser = async (searchWord, token, setLoading, setError, setSuccess) => {
     console.log("buscarUser")
     try{
+        console.log(searchWord)
         const response = await api
-        .get(`/users?page=0`, {headers:{"x-session-token":token}});
+        .get(`/users?search=${searchWord}`, {headers:{"x-session-token":token}});
         setLoading(true);
         setSuccess(true);
         setError(false);

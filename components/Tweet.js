@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, Text, TextInput, View, Image} from "react-nativ
 export function Tweet(props){
     return (
         <View style={styles.container}>
+            
             <Image source ={{uri:props.picture}} style={{width:40, height:40, borderRadius:20}}/>
             <View style={styles.caixaTituloTexto}>
                 <View>
@@ -22,22 +23,19 @@ const styles = StyleSheet.create({
 
     },
     caixaTituloTexto: {
-        width: 340,
+        width: 360,
 
         justifyContent: "center",     
     },
     user: {
         fontWeight: "bold" ,
-        margin: 2,
-        fontSize: 18,
+        margin: 4,
+        fontSize: 20,
     },
     texto:{
-        
-        padding: 4,
-
-
+        padding: 5,
         textAlign: 'justify',
-        fontSize: 18,
+        fontSize: 20,
     }
 
 });

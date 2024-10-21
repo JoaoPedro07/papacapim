@@ -11,6 +11,7 @@ import MostrarUsuario from './src/pages/usuario';
 import AuthProvider from './src/contexts/auth';
 import Deletar from './src/pages/deletar';
 import Pesquisar from './src/pages/pesquisar';
+import MostrarPost from './src/pages/post';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -24,6 +25,7 @@ export default function App() {
         <Stack.Screen name='Postar' component={Postar} options={{title:"Postar"}}/>
         <Stack.Screen name='Alterar' component={Alterar} options={{title:"Alterar"}}/>
         <Stack.Screen name='MostrarUsuario' component={MostrarUsuario} options={{title:"Usuario"}}/>
+        <Stack.Screen name='MostrarPost' component={MostrarPost} options={{title:"Post"}}/>
         <Stack.Screen name='Deletar' component={Deletar} options={{title:"Deletar"}}/>
         <Stack.Screen name='Pesquisar' component={Pesquisar} options={{title:"Pesquisar"}}/>
       </Stack.Navigator>

@@ -7,39 +7,69 @@ import { buscarPostagem } from './functions/buscarPostagens'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useFocusEffect } from '@react-navigation/native';
+import { FlatList } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
 
 export default function Contatos({ navigation }) {
   const {user, setUser} = useContext(AuthContext)
   const [postagem, setPostagens] = useState([])
   const [pagina, setPagina] = useState(0)
+  const [loading, setLoading] = useState(false)
 
   async function buscar() {
-      postagens = await buscarPostagem(user.token, pagina)
-      setPostagens(prevArray => [...prevArray, ...postagens])
-      if(pagina != 5){
-        setPagina(pagina+1)
-      }
+    setLoading(true)
+    postagens = await buscarPostagem(user.token, pagina)
+    setPostagens(prevArray => [...prevArray, ...postagens])
+    setPagina(pagina+1)
+    setLoading(false)
+      
 
   }
   useEffect(() => {
     buscar()
-  }, [pagina])
+  }, [])
 
+  function FooterList({load}){
+    if(!load) return null
+    return(
+      <View>
+        <ActivityIndicator size={25} color='#121212'/>
+      </View>
+    )
+  }
   return (
     
-      <SafeAreaView style={styles.container} >
-        <ScrollView style={styles.scroll} >
+      <View style={styles.container} >
           <View >
+            
+            {postagem != null &&
+              <FlatList
+              data={postagem}
+              onEndReached={buscar}
+              onEndReachedThreshold={0.6}
+              ListFooterComponent={<FooterList load={loading} />}
+              keyExtractor={(item, index) => index.toString()}  // Usando keyExtractor para gerar chaves
+              renderItem={({ item, index }) => (
+                <TouchableOpacity 
+                  onPress={() => navigation.navigate("MostrarPost", {
+                    "login": item.user_login, 
+                    "message": item.message,
+                    "id": item.id,
+                    "image": "https://p7.hiclipart.com/preview/722/101/213/computer-icons-user-profile-circle-abstract.jpg",
+                  })}
+                >
+                  <Tweet 
+                    textoum={item.user_login} 
+                    textodois={item.message} 
+                    picture="https://p7.hiclipart.com/preview/722/101/213/computer-icons-user-profile-circle-abstract.jpg" 
+                  />
+                </TouchableOpacity>
+              )}
+            />
+          }
             <StatusBar style="auto" />
-            {postagens != '' && postagem.map((item, index) => (
-              <TouchableOpacity onPress={() => navigation.navigate("MostrarUsuario", {"login":item.user_login, "picture":"https://pbs.twimg.com/profile_images/1695063177996713985/InPVE-hP_400x400.jpg"})}>
-                <Tweet textoum={item.user_login} textodois={item.message} picture="https://p7.hiclipart.com/preview/722/101/213/computer-icons-user-profile-circle-abstract.jpg"/>
-              </TouchableOpacity>
-            ))}
-
-
           </View>
-        </ScrollView>
+
         <View style={styles.button_view}>
 
             <TouchableOpacity onPress={() => navigation.navigate("Deletar")}>
@@ -69,14 +99,14 @@ export default function Contatos({ navigation }) {
 
         </View>
 
-      </SafeAreaView>
+      </View>
 
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 0,
+    paddingTop: 10,
     flex: 1,
     backgroundColor: '#fff',
 
@@ -86,6 +116,8 @@ const styles = StyleSheet.create({
       marginHorizontal: 6,
   },
   button_view:{
+    position: "absolute",
+    top: 700,
     padding: 10,
     flexDirection: "row",
     height: 70,

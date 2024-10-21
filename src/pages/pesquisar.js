@@ -46,13 +46,7 @@ export default function Pesquisar({navigation}){
             
                 <SafeAreaView>
                     <ScrollView>
-                        {searchWord != '' && users.filter((val) => {
-                            if(searchWord == ""){
-                                return val
-                            } else if(val.name.includes(searchWord)){
-                                return val
-                            }
-                        } ).map((item, index) => (
+                        {searchWord != '' && users.map((item, index) => (
                             <TouchableOpacity style={{width:350,height:40, backgroundColor:'#f7f7f7', justifyContent:'center', margin:2, borderColor:'black', borderWidth:0.2}} key={index} onPress={() => navigation.navigate("MostrarUsuario", {"usuario":item.name, "login":item.login})}>
                                 <Text style={{}} key={index}>{item.name}</Text>
                             </TouchableOpacity>

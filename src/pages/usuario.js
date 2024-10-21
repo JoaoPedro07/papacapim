@@ -66,7 +66,7 @@ export default function MostrarUsuario({route, navigate}) {
 
       <View style={styles.caixaTituloTexto}>
           <View>
-              <Text style={styles.user}>{usuario}</Text>
+              <Text style={styles.user}>{login}</Text>
           </View>
       </View>
 

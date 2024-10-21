@@ -12,6 +12,7 @@ import AuthProvider from './src/contexts/auth';
 import Deletar from './src/pages/deletar';
 import Pesquisar from './src/pages/pesquisar';
 import MostrarPost from './src/pages/post';
+import Comentar from './src/pages/comentar';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -23,6 +24,7 @@ export default function App() {
         <Stack.Screen name='Feed' component={Feed} options={{title:"Feed"}}/>
         <Stack.Screen name='Cadastrar' component={Cadastrar} options={{title:"Cadastrar"}}/>
         <Stack.Screen name='Postar' component={Postar} options={{title:"Postar"}}/>
+        <Stack.Screen name='Comentar' component={Comentar} options={{title:"comentar"}}/>
         <Stack.Screen name='Alterar' component={Alterar} options={{title:"Alterar"}}/>
         <Stack.Screen name='MostrarUsuario' component={MostrarUsuario} options={{title:"Usuario"}}/>
         <Stack.Screen name='MostrarPost' component={MostrarPost} options={{title:"Post"}}/>

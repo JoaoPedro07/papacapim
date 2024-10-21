@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
 import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Alert } from 'react-native';
 import { Tweet } from '../../components/Tweet'
 import React, { useContext } from 'react'
 import { AuthContext } from '../contexts/auth'
@@ -9,13 +10,23 @@ import { useState } from 'react'
 import { useFocusEffect } from '@react-navigation/native';
 import { FlatList } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
+import { curtirPost } from './functions/curtirPost';
 
 export default function Contatos({ navigation }) {
   const {user, setUser} = useContext(AuthContext)
   const [postagem, setPostagens] = useState([])
   const [pagina, setPagina] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [end, setEnd] = useState(false)
+  console.log(user.token)
+  async function curtir(id) {
+    console.log(id)
+    response = await curtirPost(user.token, id)
+    if (response){
+      Alert.Alert("Curtiu", "Você curtiu essa publicação")
+    }
 
+  }
   async function buscar() {
     setLoading(true)
     postagens = await buscarPostagem(user.token, pagina)
@@ -42,28 +53,33 @@ export default function Contatos({ navigation }) {
       <View style={styles.container} >
           <View >
             
-            {postagem != null &&
+            {postagem != undefined &&
               <FlatList
               data={postagem}
-              onEndReached={buscar}
+              onEndReached={()=>{if(!loading){buscar()}}}
               onEndReachedThreshold={0.6}
               ListFooterComponent={<FooterList load={loading} />}
               keyExtractor={(item, index) => index.toString()}  // Usando keyExtractor para gerar chaves
               renderItem={({ item, index }) => (
-                <TouchableOpacity 
-                  onPress={() => navigation.navigate("MostrarPost", {
-                    "login": item.user_login, 
-                    "message": item.message,
-                    "id": item.id,
-                    "image": "https://p7.hiclipart.com/preview/722/101/213/computer-icons-user-profile-circle-abstract.jpg",
-                  })}
-                >
-                  <Tweet 
-                    textoum={item.user_login} 
-                    textodois={item.message} 
-                    picture="https://p7.hiclipart.com/preview/722/101/213/computer-icons-user-profile-circle-abstract.jpg" 
-                  />
-                </TouchableOpacity>
+                <View>
+                  <TouchableOpacity 
+                    onPress={() => navigation.navigate("MostrarPost", {
+                      "login": item.user_login, 
+                      "message": item.message,
+                      "id": item.id,
+                      "image": "https://p7.hiclipart.com/preview/722/101/213/computer-icons-user-profile-circle-abstract.jpg",
+                    })}
+                  >
+                    <Tweet 
+                      textoum={item.user_login} 
+                      textodois={item.message} 
+                      picture="https://p7.hiclipart.com/preview/722/101/213/computer-icons-user-profile-circle-abstract.jpg" 
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{alignSelf:'flex-end', marginRight:10, backgroundColor:"cyan"}} onPress={()=>{curtir(item.id)}}>
+                    <Text style={{fontSize:18}}>Curtir</Text>
+                  </TouchableOpacity>
+                </View>
               )}
             />
           }
